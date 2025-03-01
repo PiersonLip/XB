@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Selector</title>
+    <style>
+        #graphContainer {
+            width: 100%;
+            height: 600px; /* Adjust as needed */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>HR Diagram of Donor Stars in Ultra Compact X-ray Binaries Graphs</h1>
+    <label for="graphSelector">Choose a graph:</label>
+    <select id="graphSelector">
+        <option value="lg_mtransfer_rate_log10_F_star_radius">Mass Transfer Rate</option>
+        <option value="orbital_period_log10_F_star_radius">Orbital Period</option>
+        <option value="S1_mass_log10_F_star_radius">Accretor Mass</option>
+        <option value="S2_mass_log10_F_star_radius">Donor Mass</option>
+        <option value="S2_lg_mdot_log10_F_star_radius">Donor ṁ</option>
+        <option value="S2_surface_h1_log10_F_star_radius">Surface Hydrogen</option>
+        <option value="S2_surface_he4_log10_F_star_radius">Suface Helium</option>
+        <option value="S2_surface_c12_log10_F_star_radius">Surface Carbon</option>
+        <option value="state_log10_F_star_radius">Evolutionary State</option>
+
+    </select>
+
+    <label for="altCheckbox">Enable Star Radius</label>
+    <input type="checkbox" id="altCheckbox">
+
+    <div id="graphContainer">
+        <iframe id="graphFrame" src="graphs/lg_mtransfer_rate_log10_F_star_radius.html"></iframe>
+    </div>
+
+    <script>
+        const graphSelector = document.getElementById('graphSelector');
+        const altCheckbox = document.getElementById('altCheckbox');
+        const graphFrame = document.getElementById('graphFrame');
+
+        function updateGraph() {
+            const selectedGraph = graphSelector.value;
+            const altVersion = altCheckbox.checked ? '_T' : '';
+            graphFrame.src = `graphs/${selectedGraph}${altVersion}.html`;
+        }
+
+        graphSelector.addEventListener('change', updateGraph);
+        altCheckbox.addEventListener('change', updateGraph);
+    </script>
+</body>
+</html>
